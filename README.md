@@ -6,6 +6,40 @@ Node.js ssh2-connect
 The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide 
 a simplified callback-back approach to initiate a new SSH connection.
 
+Usage
+-----
+
+The main purpose of this module is to simplify the creation of an SSH 
+connection. For example, the original ssh2 code...
+
+```coffee
+ssh2 = require 'ssh2'
+connection = new ssh2()
+connection.on 'error', (err) ->
+  connection.end()
+  # not ready at all
+connection.on 'ready', ->
+  # ready to go
+connection.connect options
+```
+
+...is simplified to:
+
+```coffee
+connect = require 'ssh2-exec/lib/connect'
+connect options, (err, ssh) ->
+  # this is faster to write
+```
+
+Options are inherited from the [ssh2 `Connection.prototype.connect` function][connect]
+with a few additions:
+
+-   `username`   
+    The username used to initiate the connection, default to the current 
+    environment user.   
+-   `privateKeyPath`   
+    Path to the file containing the private key.   
+
 Installation
 ------------
 
@@ -75,5 +109,6 @@ Contributors
 
 [travis]: http://travis-ci.org/wdavidw/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
+[connect]: https://github.com/mscdex/ssh2
 [license]: https://github.com/wdavidw/node-ssh2-connect/blob/master/LICENSE.md
 
