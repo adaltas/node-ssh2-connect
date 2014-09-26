@@ -1,13 +1,11 @@
 [![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-connect.png)][travis]
 
-Node.js ssh2-connect
-====================
+# Node.js ssh2-connect
 
 The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide 
 a simplified callback-back approach to initiate a new SSH connection.
 
-Usage
------
+## Usage
 
 The main purpose of this module is to simplify the creation of an SSH 
 connection. For example, the original ssh2 code...
@@ -31,17 +29,25 @@ connect options, (err, ssh) ->
   # this is faster to write
 ```
 
-Options are inherited from the [ssh2 `Connection.prototype.connect` function][connect]
-with a few additions:
+## Options
+
+Options are inherited from the [ssh2 `Connection.prototype.connect`][connect]
+function with a few additions:
 
 -   `username`   
-    The username used to initiate the connection, default to the current 
-    environment user.   
+    The username used to initiate the connection, default to the current
+    environment user.
 -   `privateKeyPath`   
     Path to the file containing the private key.   
+-   `retry`
+    Attempt to reconnect multiple times, default to "1".   
+-   `wait`
+    Time to wait in milliseconds between each retry, default to "500".  
 
-Installation
-------------
+Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
+"privateKey" property.
+
+## Installation
 
 This is OSS and licensed under the [new BSD license][license].
 
@@ -49,8 +55,7 @@ This is OSS and licensed under the [new BSD license][license].
 npm install ssh2-connect
 ```
 
-Examples
---------
+## Examples
 
 The example is using both the "ssh2-connect" and "ssh2-fs" modules.
 
@@ -81,8 +86,7 @@ connection.on('ready', function(){
 connection.connect({host: 'localhost'});
 ```
 
-Development
------------
+## Development
 
 Tests are executed with mocha. To install it, simple run `npm install`, it will install
 mocha and its dependencies in your project "node_modules" directory.
@@ -102,8 +106,7 @@ make build
 The test suite is run online with [Travis][travis] against Node.js version 0.9, 
 0.10 and 0.11.
 
-Contributors
-------------
+## Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
