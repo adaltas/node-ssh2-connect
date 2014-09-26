@@ -24,10 +24,11 @@ connect options, (err, ssh) ->
   # this is faster to write
 ```
 
-    ssh2 = require 'ssh2'
+    camelize = require 'camelize'
     fs = require 'fs'
+    ssh2 = require 'ssh2'
 
-Options are inherited from the [ssh2 `Connection.prototype.connect`][connect]
+Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
 function with a few additions:
 
 -   `username`   
@@ -43,8 +44,13 @@ function with a few additions:
 Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
 "privateKey" property.
 
+Additionally, all options may be provided in camalize (the default in [ssh2]) or
+underscore form. For example, both "privateKey" and "private_key" would be
+interprated the same.
+
     module.exports = (options, callback) ->
       return callback null, options if options instanceof ssh2
+      options = camelize options
       options.username ?= process.env['USER']
       options.retry ?= 1
       if not options.password and not options.privateKey
@@ -72,3 +78,6 @@ Note, the "privateKeyPath" option is provided as a conveniency to  prepare the
           callback null, connection
         connection.connect options
       privateKeyPath()
+
+[ssh2]: https://github.com/mscdex/ssh2
+[ssh2-connect]: https://github.com/wdavidw/node-ssh2-connect

@@ -7,6 +7,8 @@ a simplified callback-back approach to initiate a new SSH connection.
 
 ## Usage
 
+Function signature is `connect(options, callback)`.
+
 The main purpose of this module is to simplify the creation of an SSH 
 connection. For example, the original ssh2 code...
 
@@ -31,7 +33,7 @@ connect options, (err, ssh) ->
 
 ## Options
 
-Options are inherited from the [ssh2 `Connection.prototype.connect`][connect]
+Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
 function with a few additions:
 
 -   `username`   
@@ -46,6 +48,10 @@ function with a few additions:
 
 Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
 "privateKey" property.
+
+Additionally, all options may be provided in camalize (the default in [ssh2]) or
+underscore form. For example, both "privateKey" and "private_key" would be
+interprated the same.
 
 ## Installation
 
@@ -112,6 +118,6 @@ The test suite is run online with [Travis][travis] against Node.js version 0.9,
 
 [travis]: http://travis-ci.org/wdavidw/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
-[connect]: https://github.com/mscdex/ssh2
+[ssh2-connect]: https://github.com/mscdex/ssh2
 [license]: https://github.com/wdavidw/node-ssh2-connect/blob/master/LICENSE.md
 
