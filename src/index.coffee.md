@@ -68,13 +68,17 @@ interprated the same.
       st = Date.now()
       connect = ->
         retry-- if retry isnt true and retry > 0
+        succeed = false
         connection = new ssh2()
         connection.on 'error', (err) ->
           connection.end()
+          # Event "error" is thrown after a "ready" if the connection is lost
+          return if succeed
           if retry is true or retry > 0
           then setTimeout connect, 2000
           else callback err
         connection.on 'ready', ->
+          succeed = true
           callback null, connection
         connection.connect options
       privateKeyPath()
