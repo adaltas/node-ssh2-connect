@@ -1,6 +1,6 @@
 {
   "name": "ssh2-connect",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Callback-based api behind ssh2 to open an SSH connection",
   "keywords": ["ssh", "ssh2", "sftp", "secure", "shell", "exec", "remote", "client"],
   "homepage": "https://github.com/wdavidw/node-ssh2-connect",
