@@ -24,7 +24,6 @@ connect options, (err, ssh) ->
   # this is faster to write
 ```
 
-    camelize = require 'camelize'
     fs = require 'fs'
     ssh2 = require 'ssh2'
 
@@ -82,6 +81,12 @@ interprated the same.
           callback null, connection
         connection.connect options
       privateKeyPath()
+
+    camelize = (obj) ->
+      for k, v of obj
+        newk = k.replace /[_.-](\w|$)/g, (_,x) -> x.toUpperCase()
+        obj[newk] = v unless k is newk
+      obj
 
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/wdavidw/node-ssh2-connect

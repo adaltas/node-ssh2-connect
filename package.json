@@ -15,7 +15,6 @@
     "url": "git://github.com/wdavidw/node-ssh2-connect.git"
   },
   "dependencies": {
-    "camelize": "^1.0.0",
     "ssh2": "^0.4.4"
   },
   "devDependencies": {
