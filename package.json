@@ -18,9 +18,9 @@
     "ssh2": "^0.4.4"
   },
   "devDependencies": {
-    "coffee-script": "latest",
-    "mocha": "latest",
-    "should": "latest"
+    "coffee-script": "1.9.1",
+    "mocha": "2.2.1",
+    "should": "5.2.0"
   },
   "optionalDependencies": {},
   "scripts": {
