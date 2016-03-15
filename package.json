@@ -16,12 +16,12 @@
     "url": "git://github.com/wdavidw/node-ssh2-connect.git"
   },
   "dependencies": {
-    "ssh2": "^0.4.8"
+    "ssh2": "^0.4.11"
   },
   "devDependencies": {
-    "coffee-script": "1.9.3",
-    "mocha": "2.2.5",
-    "should": "6.0.3"
+    "coffee-script": "1.10.0",
+    "mocha": "2.4.5",
+    "should": "8.2.2"
   },
   "optionalDependencies": {},
   "scripts": {
