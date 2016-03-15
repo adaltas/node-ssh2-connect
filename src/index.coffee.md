@@ -50,7 +50,7 @@ interprated the same.
     module.exports = (options, callback) ->
       return callback null, options if options instanceof ssh2
       options = camelize options
-      options.username ?= process.env['USER']
+      options.username ?= process.env['USER'] or require('child_process').execSync("whoami", encoding: 'utf8', timeout: 1000).trim()
       options.retry ?= 1
       if not options.password and not options.privateKey
         options.privateKeyPath ?= '~/.ssh/id_rsa'
