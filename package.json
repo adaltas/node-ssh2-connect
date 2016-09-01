@@ -1,20 +1,9 @@
 {
   "name": "ssh2-connect",
-  "version": "1.0.1",
   "description": "Callback-based api behind ssh2 to open an SSH connection",
-  "keywords": ["ssh", "ssh2", "sftp", "secure", "shell", "exec", "remote", "client"],
-  "homepage": "https://github.com/wdavidw/node-ssh2-connect",
-  "license": "BSD-3-Clause",
+  "version": "1.0.1",
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
-  "engines": {
-    "node": ">=0.10.1"
-  },
-  "main": "./lib/index",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/wdavidw/node-ssh2-connect.git"
-  },
   "dependencies": {
     "ssh2": "~0.5.0"
   },
@@ -23,7 +12,27 @@
     "mocha": "~3.0.2",
     "should": "~11.1.0"
   },
+  "engines": {
+    "node": ">=0.10.1"
+  },
+  "homepage": "https://github.com/wdavidw/node-ssh2-connect",
+  "keywords": [
+    "client",
+    "exec",
+    "remote",
+    "secure",
+    "sftp",
+    "shell",
+    "ssh",
+    "ssh2"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "./lib/index",
   "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wdavidw/node-ssh2-connect.git"
+  },
   "scripts": {
     "coffee": "./node_modules/.bin/coffee -b -o lib src",
     "pretest": "./node_modules/.bin/coffee -b -o lib src",
