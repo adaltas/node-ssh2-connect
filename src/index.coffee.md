@@ -51,6 +51,7 @@ interprated the same.
       return callback null, options if options instanceof ssh2
       options = camelize options
       options.username ?= process.env['USER'] or require('child_process').execSync("whoami", encoding: 'utf8', timeout: 1000).trim()
+      options.username ?= 'root' # We've seed 'USER' not inside env inside the docker centos6 container.
       options.retry ?= 1
       if not options.password and not options.privateKey
         options.privateKeyPath ?= '~/.ssh/id_rsa'
