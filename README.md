@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-connect.png)][travis]
+[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-connect.png)][travis]
 
 # Node.js ssh2-connect
 
@@ -116,8 +116,7 @@ The test suite is run online with [Travis][travis] against Node.js version 0.9,
 
 *   David Worms: <https://github.com/wdavidw>
 
-[travis]: http://travis-ci.org/wdavidw/node-ssh2-connect
+[travis]: http://travis-ci.org/adaltas/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/mscdex/ssh2
-[license]: https://github.com/wdavidw/node-ssh2-connect/blob/master/LICENSE.md
-
+[license]: https://github.com/adaltas/node-ssh2-connect/blob/master/LICENSE.md
