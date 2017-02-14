@@ -31,7 +31,7 @@
   "optionalDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/adaltas/node-ssh2-connect.git"
+    "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
     "coffee": "./node_modules/.bin/coffee -b -o lib src",
