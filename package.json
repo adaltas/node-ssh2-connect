@@ -5,10 +5,10 @@
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "dependencies": {
-    "coffeescript": "^2.0.2",
     "ssh2": "~0.5.5"
   },
   "devDependencies": {
+    "coffeescript": "^2.0.2",
     "mocha": "~4.0.1",
     "should": "~13.1.3"
   },
