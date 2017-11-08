@@ -5,12 +5,12 @@
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "dependencies": {
-    "ssh2": "~0.5.4"
+    "coffeescript": "^2.0.2",
+    "ssh2": "~0.5.5"
   },
   "devDependencies": {
-    "coffee-script": "~1.12.3",
-    "mocha": "~3.2.0",
-    "should": "~11.2.0"
+    "mocha": "~4.0.1",
+    "should": "~13.1.3"
   },
   "engines": {
     "node": ">=0.10.1"
@@ -34,8 +34,8 @@
     "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
-    "coffee": "./node_modules/.bin/coffee -b -o lib src",
-    "pretest": "./node_modules/.bin/coffee -b -o lib src",
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter dot"
+    "coffee": "coffee -b -o lib src",
+    "pretest": "coffee -b -o lib src",
+    "test": "mocha test/*.coffee"
   }
 }
