@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 2.0.2
 
 * dependency: update to ssh 0.6.0
 
