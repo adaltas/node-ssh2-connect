@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* readme: add author company
+
 ## Version 2.0.3
 
 * readme: convert usage example to js

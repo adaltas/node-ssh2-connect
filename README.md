@@ -128,6 +128,8 @@ The test suite is run online with [Travis][travis] against Node.js version 0.9,
 
 *   David Worms: <https://github.com/wdavidw>
 
+This package is developed by [Adaltas](http://www.adaltas.com).
+
 [travis]: http://travis-ci.org/adaltas/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/mscdex/ssh2
