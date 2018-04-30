@@ -12,23 +12,33 @@ Function signature is `connect(options, callback)`.
 The main purpose of this module is to simplify the creation of an SSH 
 connection. For example, the original ssh2 code...
 
-```coffee
-ssh2 = require 'ssh2'
-connection = new ssh2()
-connection.on 'error', (err) ->
-  connection.end()
-  # not ready at all
-connection.on 'ready', ->
-  # ready to go
-connection.connect options
+```js
+const ssh2 = require('ssh2')
+const connection = new ssh2()
+connection.on('error', function(err){
+  // not ready at all
+})
+connection.on('ready', function(){
+  // ready to go
+})
+connection.connect({
+  host: 'localhost',
+  user: 'milou',
+  password: 'wafwaf'
+})
 ```
 
 ...is simplified to:
 
-```coffee
-connect = require 'ssh2-exec/lib/connect'
-connect options, (err, ssh) ->
-  # this is faster to write
+```js
+const connect = require('ssh2-connect')
+connect({
+  host: 'localhost',
+  username: 'milou',
+  password: 'wafwaf'
+}, function(err, ssh){
+  // this is easier to write
+})
 ```
 
 ## Options
@@ -66,9 +76,11 @@ npm install ssh2-connect
 The example is using both the "ssh2-connect" and "ssh2-fs" modules.
 
 ```js
-connect = require('ssh2-connect');
-fs = require('ssh2-fs');
+const connect = require('ssh2-connect');
+const fs = require('ssh2-fs');
+// Open the connection
 connect({host: 'localhost'}, function(err, ssh){
+  // Create a directory
   fs.mkdir(ssh, '/tmp/a_dir', (err, stdout, stderr){
     console.log(stdout);
   });

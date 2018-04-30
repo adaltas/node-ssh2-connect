@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* readme: convert usage example to js
+
 ## Version 2.0.2
 
 * dependency: update to ssh 0.6.0
