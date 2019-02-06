@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* package: upgrade dependencies
+
 ## Version 2.0.4
 
 * readme: add author company

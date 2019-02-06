@@ -5,12 +5,12 @@
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "dependencies": {
-    "ssh2": "~0.6.0"
+    "ssh2": "~0.8.2"
   },
   "devDependencies": {
-    "coffeescript": "^2.2.4",
-    "mocha": "~5.1.1",
-    "should": "~13.2.1"
+    "coffeescript": "^2.3.2",
+    "mocha": "~5.2.0",
+    "should": "~13.2.3"
   },
   "engines": {
     "node": ">=0.10.1"
