@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 2.0.5
 
 * package: upgrade dependencies
 
