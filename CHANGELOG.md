@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* package: update author url
 * license: use MIT
 
 ## Version 2.0.5
