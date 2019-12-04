@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* license: use MIT
+
 ## Version 2.0.5
 
 * package: upgrade dependencies
