@@ -38,7 +38,7 @@ function with a few additions:
 -   `retry`
     Attempt to reconnect multiple times, default to "1".   
 -   `wait`
-    Time to wait in milliseconds between each retry, default to "500".     
+    Time to wait in milliseconds between each retry, default to "2000".     
 
 Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
 "privateKey" property.
@@ -75,7 +75,7 @@ interprated the same.
           # Event "error" is thrown after a "ready" if the connection is lost
           return if succeed
           if retry is true or retry > 0
-          then setTimeout connect, 2000
+          then setTimeout connect, options.wait
           else callback err
         connection.on 'ready', ->
           succeed = true

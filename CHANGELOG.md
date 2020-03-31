@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* wait: new option, default to 2000
 * package: update author url
 * license: use MIT
 
