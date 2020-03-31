@@ -3,6 +3,25 @@
   "description": "Callback-based api behind ssh2 to open an SSH connection",
   "version": "2.0.5",
   "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "coffeelintConfig": {
+    "indentation": {
+      "level": "error",
+      "value": 2
+    },
+    "line_endings": {
+      "level": "error",
+      "value": "unix"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    },
+    "no_backticks": {
+      "level": "ignore"
+    },
+    "no_nested_string_interpolation": {
+      "level": "ignore"
+    }
+  },
   "contributors": [],
   "dependencies": {
     "ssh2": "~0.8.2"
