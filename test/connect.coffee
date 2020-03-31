@@ -1,34 +1,34 @@
 
-fs = require 'fs'
+fs = require('fs').promises
 connect = require '../src'
 
 describe 'connect', ->
 
-  it 'initiate a new connection', (next) ->
-    connect {}, (err, ssh) ->
-      return next err if err
-      ssh.end()
-      ssh.on 'end', ->
-        next()
+  it 'initiate a new connection', ->
+    conn = await connect {}
+    conn.end()
 
-  it 'initiate a failed connection', (next) ->
-    connect {host: 'doesntexists', username: 'iam', password: 'invalid'}, (err, ssh) ->
+  it 'initiate a failed connection', ->
+    connect
+      host: 'doesntexists'
+      username: 'iam'
+      password: 'invalid'
+    .catch (err) ->
       err.code.should.eql 'ENOTFOUND'
-      next()
 
-  it 'initiate from buffer private key', (next) ->
-    fs.readFile "#{process.env.HOME}/.ssh/id_rsa", (err, pk) ->
-      connect host: '127.0.0.1', privateKey: pk, (err, ssh) ->
-        return next err if err
-        ssh.end()
-        ssh.on 'end', ->
-          next()
+  it 'option `privateKey` as a buffer', ->
+    pk = await fs.readFile "#{process.env.HOME}/.ssh/id_rsa"
+    conn = await connect
+      host: '127.0.0.1'
+      privateKey: pk
+    conn.end()
 
-  it 'camelize properties', (next) ->
+  it 'option `privateKeyPath`', ->
+    opts = host: '127.0.0.1', privateKeyPath: '~/.ssh/id_rsa'
+    conn = await connect opts
+    conn.end()
+
+  it 'options are camelized', ->
     opts = host: '127.0.0.1', private_key_path: '~/.ssh/id_rsa'
-    connect opts, (err, ssh) ->
-      opts.privateKeyPath.should.exists
-      return next err if err
-      ssh.end()
-      ssh.on 'end', ->
-        next()
+    conn = await connect opts
+    conn.end()

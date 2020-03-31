@@ -60,7 +60,7 @@
     "minor": "npm version minor -m 'Bump to version %s'",
     "major": "npm version major -m 'Bump to version %s'",
     "build": "coffee -b -o lib src",
-    "pretest": "npm build",
+    "pretest": "npm run build",
     "test": "mocha 'test/**/*.coffee'"
   }
 }
