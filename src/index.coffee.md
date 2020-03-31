@@ -15,7 +15,7 @@ connection.on('error', (err) => {
 connection.on('ready', () => {
   // ready to go
 })
-connection.connect9options
+connection.connect(options)
 ```
 
 ...is now simplified to:   
@@ -27,7 +27,7 @@ const ssh = await connect(options, (err, ssh) ->
 )
 ```
 
-    fs = require 'fs'
+    fs = require('fs').promises
     ssh2 = require 'ssh2'
 
 Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
@@ -64,13 +64,12 @@ interprated the same.
             options.privateKeyPath = process.env.HOME + match[1]
         else
           options.privateKeyPath = null
-        privateKeyPath = ->
-          return connect() unless options.privateKeyPath
-          fs.readFile options.privateKeyPath, 'ascii', (err, privateKey) ->
-            options.privateKey = privateKey
-            connect()
+        # Extract private key from file
+        try if options.privateKeyPath
+          options.privateKey = await fs.readFile options.privateKeyPath, 'ascii'
+        catch e then return reject e
+        # Connection attempts
         retry = options.retry
-        st = Date.now()
         connect = ->
           retry-- if retry isnt true and retry > 0
           succeed = false
@@ -86,7 +85,7 @@ interprated the same.
             succeed = true
             resolve connection
           connection.connect options
-        privateKeyPath()
+        connect()
 
     camelize = (obj) ->
       for k, v of obj

@@ -24,11 +24,19 @@ describe 'connect', ->
     conn.end()
 
   it 'option `privateKeyPath`', ->
-    opts = host: '127.0.0.1', privateKeyPath: '~/.ssh/id_rsa'
-    conn = await connect opts
+    conn = await connect
+      host: '127.0.0.1'
+      privateKeyPath: '~/.ssh/id_rsa'
     conn.end()
 
+  it 'option `privateKeyPath` with missing file', ->
+    connect
+      host: '127.0.0.1'
+      privateKeyPath: './doesntexists'
+    .should.be.rejectedWith "ENOENT: no such file or directory, open './doesntexists'"
+
   it 'options are camelized', ->
-    opts = host: '127.0.0.1', private_key_path: '~/.ssh/id_rsa'
-    conn = await connect opts
+    conn = await connect
+      host: '127.0.0.1'
+      private_key_path: '~/.ssh/id_rsa'
     conn.end()
