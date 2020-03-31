@@ -7,6 +7,7 @@ Breaking changes:
 * src: promise based API
 
 Project Management
+* package: ignore lock files
 * package: latest dependencies
 * doc: new connect.js sample
 * wait: new option, default to 2000
