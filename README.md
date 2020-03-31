@@ -16,10 +16,12 @@ connection. For example, the original ssh2 code...
 const ssh2 = require('ssh2')
 const connection = new ssh2()
 connection.on('error', function(err){
-  // not ready at all
+  // Handle the connection error
+  connection.end()
 })
 connection.on('ready', function(){
-  // ready to go
+  // Work with the connection
+  connection.end()
 })
 connection.connect({
   host: 'localhost',
@@ -32,13 +34,19 @@ connection.connect({
 
 ```js
 const connect = require('ssh2-connect')
-connect({
-  host: 'localhost',
-  username: 'milou',
-  password: 'wafwaf'
-}, function(err, ssh){
-  // this is easier to write
-})
+(async () => {
+  try{
+    const ssh = await connect({
+      host: 'localhost',
+      username: 'david',
+      private_key_path: '~/.ssh/id_rsa'
+    })
+    // Work with the connection
+    ssh.end()
+  }catch (err){
+    // Handle the connection error
+  }
+})()
 ```
 
 ## Options
@@ -54,7 +62,7 @@ function with a few additions:
 -   `retry`
     Attempt to reconnect multiple times, default to "1".   
 -   `wait`
-    Time to wait in milliseconds between each retry, default to "500".  
+    Time to wait in milliseconds between each retry, default to "2000".  
 
 Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
 "privateKey" property.
@@ -110,27 +118,27 @@ Tests are executed with mocha. To install it, simple run `npm install`, it will 
 mocha and its dependencies in your project "node_modules" directory.
 
 To run the tests:
+
 ```bash
 npm test
 ```
 
-The tests run against the CoffeeScript source files.
-
 To generate the JavaScript files:
+
 ```bash
-make build
+npm run build
 ```
 
-The test suite is run online with [Travis][travis] against Node.js version 0.9, 
-0.10 and 0.11.
+The test suite is run online with [Travis][travis] against several Node.js
+version.
 
 ## Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
-This package is developed by [Adaltas](http://www.adaltas.com).
+This package is developed by [Adaltas](https://www.adaltas.com).
 
 [travis]: http://travis-ci.org/adaltas/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
-[ssh2-connect]: https://github.com/mscdex/ssh2
+[ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
 [license]: https://github.com/adaltas/node-ssh2-connect/blob/master/LICENSE.md

@@ -7,6 +7,7 @@ Breaking changes:
 * src: promise based API
 
 Project Management
+* doc: new connect.js sample
 * wait: new option, default to 2000
 * package: update author url
 * license: use MIT
