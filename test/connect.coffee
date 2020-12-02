@@ -40,3 +40,24 @@ describe 'connect', ->
       host: '127.0.0.1'
       private_key_path: '~/.ssh/id_rsa'
     conn.end()
+    
+  describe 'callback', ->
+
+    it 'initiate a new connection', ->
+      new Promise (resolve, reject) ->
+        connect {}, (err, conn) ->
+          return reject err if err
+          conn.end()
+          resolve()
+
+    it 'initiate a failed connection', ->
+      new Promise (resolve, reject) ->
+        connect
+          host: 'doesntexists'
+          username: 'iam'
+          password: 'invalid'
+        , (err) ->
+          return reject Error 'Error not throw' unless err
+          err.code.should.eql 'ENOTFOUND'
+          resolve()
+        

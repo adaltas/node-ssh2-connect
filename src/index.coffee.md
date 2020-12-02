@@ -50,8 +50,8 @@ Additionally, all options may be provided in camalize (the default in [ssh2]) or
 underscore form. For example, both "privateKey" and "private_key" would be
 interprated the same.
 
-    module.exports = (options) ->
-      new Promise (resolve, reject) ->
+    module.exports = (options, callback) ->
+      work = (resolve, reject) ->
         return resolve options if options instanceof ssh2
         options = camelize options
         options.username ?= process.env['USER'] or require('child_process').execSync("whoami", encoding: 'utf8', timeout: 1000).trim()
@@ -86,6 +86,13 @@ interprated the same.
             resolve connection
           connection.connect options
         connect()
+      unless callback
+        new Promise work
+      else
+        work (conn) ->
+          callback null, conn
+        , (err) ->
+          callback err
 
     camelize = (obj) ->
       for k, v of obj
