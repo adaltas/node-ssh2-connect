@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* test: latest mocha
 * feat: re-activate optional callback API
 
 ## Version 3.0.0
