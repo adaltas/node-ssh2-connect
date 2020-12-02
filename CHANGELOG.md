@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 3.1.0
 
 * test: latest mocha
 * feat: re-activate optional callback API
