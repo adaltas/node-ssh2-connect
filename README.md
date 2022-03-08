@@ -10,7 +10,7 @@ The `connect` function return a promise. Its signature is `await connect(options
 
 It also accept an optional callback function. In such case, its signature is `connect(options, callback)`.
 
-The main purpose of this module is to simplify the creation of an SSH  connection. For example, the original ssh2 code...
+This package simplifies the creation of an SSH connection. For example, the original ssh2 code...
 
 ```js
 const ssh2 = require('ssh2')
