@@ -71,7 +71,7 @@
   "scripts": {
     "build": "coffee -b -o lib src",
     "prepare": "husky install",
-    "publish": "git push --follow-tags origin master && npm publish ",
+    "publish": "git push --follow-tags origin master && npm publish",
     "pretest": "npm run build",
     "release": "npm test && standard-version",
     "test": "mocha 'test/**/*.coffee'"
