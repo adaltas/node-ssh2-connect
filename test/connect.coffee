@@ -20,7 +20,7 @@ describe 'connect', ->
       err.level.should.eql 'client-authentication'
 
   it 'option `privateKey` as a buffer', ->
-    pk = await fs.readFile "#{process.env.HOME}/.ssh/id_rsa"
+    pk = await fs.readFile "#{process.env.HOME}/.ssh/id_ed25519"
     conn = await connect
       host: '127.0.0.1'
       privateKey: pk
@@ -29,7 +29,7 @@ describe 'connect', ->
   it 'option `privateKeyPath`', ->
     conn = await connect
       host: '127.0.0.1'
-      privateKeyPath: '~/.ssh/id_rsa'
+      privateKeyPath: '~/.ssh/id_ed25519'
     conn.end()
 
   it 'option `privateKeyPath` with missing file', ->
@@ -41,7 +41,7 @@ describe 'connect', ->
   it 'options are camelized', ->
     conn = await connect
       host: '127.0.0.1'
-      private_key_path: '~/.ssh/id_rsa'
+      private_key_path: '~/.ssh/id_ed25519'
     conn.end()
     
   describe 'callback', ->
