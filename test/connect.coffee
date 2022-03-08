@@ -9,12 +9,15 @@ describe 'connect', ->
     conn.end()
 
   it 'initiate a failed connection', ->
-    connect
-      host: 'doesntexists'
-      username: 'iam'
-      password: 'invalid'
-    .catch (err) ->
-      err.code.should.eql 'ENOTFOUND'
+    try
+      await connect
+        host: 'doesntexists'
+        username: 'iam'
+        password: 'invalid'
+      throw Error 'Unexpected error'
+    catch err
+      Object.keys(err).should.eql ['level']
+      err.level.should.eql 'client-authentication'
 
   it 'option `privateKey` as a buffer', ->
     pk = await fs.readFile "#{process.env.HOME}/.ssh/id_rsa"
@@ -58,6 +61,7 @@ describe 'connect', ->
           password: 'invalid'
         , (err) ->
           return reject Error 'Error not throw' unless err
-          err.code.should.eql 'ENOTFOUND'
+          Object.keys(err).should.eql ['level']
+          err.level.should.eql 'client-authentication'
           resolve()
         
