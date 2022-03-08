@@ -28,7 +28,7 @@ const ssh = await connect(options, (err, ssh) ->
 ```
 
     fs = require('fs').promises
-    ssh2 = require 'ssh2'
+    {Client} = require 'ssh2'
 
 Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
 function with a few additions:
@@ -52,15 +52,13 @@ interprated the same.
 
     module.exports = (options, callback) ->
       work = (resolve, reject) ->
-        return resolve options if options instanceof ssh2
+        return resolve options if options instanceof Client
         options = camelize options
         options.username ?= process.env['USER'] or require('child_process').execSync("whoami", encoding: 'utf8', timeout: 1000).trim()
         options.username ?= 'root' # We've seed 'USER' not inside env inside the docker centos6 container.
         options.retry ?= 1
         options.wait ?= 500
         if not options.password and not options.privateKey
-          options.privateKeyPath ?= '~/.ssh/id_rsa'
-          if options.privateKeyPath and match = /~(\/.*)/.exec options.privateKeyPath
             options.privateKeyPath = process.env.HOME + match[1]
         else
           options.privateKeyPath = null
@@ -73,7 +71,7 @@ interprated the same.
         connect = ->
           retry-- if retry isnt true and retry > 0
           succeed = false
-          connection = new ssh2()
+          connection = new Client()
           connection.on 'error', (err) ->
             connection.end()
             # Event "error" is thrown after a "ready" if the connection is lost

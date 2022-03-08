@@ -24,11 +24,11 @@
   },
   "contributors": [],
   "dependencies": {
-    "ssh2": "~0.8.9"
+    "ssh2": "~1.7.0"
   },
   "devDependencies": {
-    "coffeescript": "^2.5.1",
-    "mocha": "~8.2.1",
+    "coffeescript": "^2.6.1",
+    "mocha": "~9.2.1",
     "should": "~13.2.3"
   },
   "engines": {
