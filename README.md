@@ -6,7 +6,7 @@ The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide a 
 
 ## Usage
 
-The `connect` fonction return a promise. Its signature is `await connect(options)`
+The `connect` function return a promise. Its signature is `await connect(options)`
 
 It also accept an optional callback function. In such case, its signature is `connect(options, callback)`.
 
