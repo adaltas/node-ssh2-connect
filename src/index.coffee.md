@@ -27,7 +27,8 @@ const ssh = await connect(options, (err, ssh) ->
 )
 ```
 
-    fs = require('fs').promises
+    {constants, promises: fs} = require('fs')
+    path = require('path')
     {Client} = require 'ssh2'
 
 Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
@@ -59,12 +60,24 @@ interprated the same.
         options.retry ?= 1
         options.wait ?= 500
         if not options.password and not options.privateKey
-            options.privateKeyPath = process.env.HOME + match[1]
+          options.privateKeyPath ?= true # Auto discovery
         else
           options.privateKeyPath = null
         # Extract private key from file
-        try if options.privateKeyPath
-          options.privateKey = await fs.readFile options.privateKeyPath, 'ascii'
+        try
+          if typeof options.privateKeyPath is 'string'
+            if match = /~(\/.*)/.exec options.privateKeyPath
+              options.privateKeyPath = path.join process.env.HOME, match[1]
+            options.privateKey = await fs.readFile options.privateKeyPath, 'ascii'
+          else if options.privateKeyPath is true
+            for algo in ['id_ed25519', 'id_rsa']
+              source = path.resolve process.env.HOME, '.ssh', algo
+              try
+                options.privateKey = await fs.readFile source, 'ascii'
+                break
+              catch err then {}
+            unless options.privateKey?
+              throw Error 'Failed to discover an ssh private key inside `~/.ssh`.'
         catch e then return reject e
         # Connection attempts
         retry = options.retry

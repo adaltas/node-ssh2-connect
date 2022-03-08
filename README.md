@@ -2,8 +2,7 @@
 
 # Node.js ssh2-connect
 
-The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide 
-a simplified callback-back approach to initiate a new SSH connection.
+The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide a simplified callback-back approach to initiate a new SSH connection.
 
 ## Usage
 
@@ -11,8 +10,7 @@ The `connect` fonction return a promise. Its signature is `await connect(options
 
 It also accept an optional callback function. In such case, its signature is `connect(options, callback)`.
 
-The main purpose of this module is to simplify the creation of an SSH 
-connection. For example, the original ssh2 code...
+The main purpose of this module is to simplify the creation of an SSH  connection. For example, the original ssh2 code...
 
 ```js
 const ssh2 = require('ssh2')
@@ -53,25 +51,21 @@ const connect = require('ssh2-connect')
 
 ## Options
 
-Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect]
-function with a few additions:
+Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect] function with a few additions:
 
 -   `username`   
     The username used to initiate the connection, default to the current
     environment user.
 -   `privateKeyPath`   
-    Path to the file containing the private key.   
+    Path of the file containing the private key, `true` to enable auto-discovery or `false` to disable auto-discovery, default to `true`.   
 -   `retry`
-    Attempt to reconnect multiple times, default to "1".   
+    Attempt to reconnect multiple times, default to `1`.   
 -   `wait`
-    Time to wait in milliseconds between each retry, default to "2000".  
+    Time to wait in milliseconds between each retry, default to `2000`.  
 
-Note, the "privateKeyPath" option is provided as a conveniency to  prepare the 
-"privateKey" property.
+Note, the "privateKeyPath" option is provided as a conveniency to read the private key and fill the "privateKey" property.
 
-Additionally, all options may be provided in camalize (the default in [ssh2]) or
-underscore form. For example, both "privateKey" and "private_key" would be
-interprated the same.
+Additionally, all options may be provided in camalize (the default in [ssh2]) or underscore form. For example, both "privateKey" and "private_key" would be interprated the same.
 
 ## Installation
 
@@ -116,8 +110,7 @@ connection.connect({host: 'localhost'});
 
 ## Development
 
-Tests are executed with mocha. To install it, simple run `npm install`, it will install
-mocha and its dependencies in your project "node_modules" directory.
+Tests are executed with mocha. To install it, simple run `npm install`, it will install mocha and its dependencies in your project "node_modules" directory.
 
 To run the tests:
 
@@ -131,8 +124,7 @@ To generate the JavaScript files:
 npm run build
 ```
 
-The test suite is run online with [Travis][travis] against several Node.js
-version.
+The test suite is run online with [Travis][travis] against several Node.js version.
 
 ## Contributors
 
