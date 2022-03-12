@@ -70,10 +70,13 @@
   },
   "scripts": {
     "build": "coffee -b -o lib src",
-    "prepare": "husky install",
     "publish": "git push --follow-tags origin master && npm publish",
+    "prepare": "husky install",
     "pretest": "npm run build",
-    "release": "npm test && standard-version",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major",
     "test": "mocha 'test/**/*.coffee'"
   }
 }
