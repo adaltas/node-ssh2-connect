@@ -1,4 +1,5 @@
 
+os = require 'os'
 fs = require('fs').promises
 connect = require '../src'
 
@@ -11,7 +12,7 @@ describe 'connect', ->
       stream
       .on 'close', (code, signal) ->
         code.should.eql 0
-        whoami.should.eql 'david'
+        whoami.should.eql os.userInfo().username
         conn.end()
       .on 'data', (data) ->
         whoami = data.toString().trim()
