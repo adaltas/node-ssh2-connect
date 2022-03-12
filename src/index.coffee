@@ -62,3 +62,6 @@ camelize = (obj) ->
     newk = k.replace /[_.-](\w|$)/g, (_,x) -> x.toUpperCase()
     obj[newk] = v unless k is newk
   obj
+
+module.exports.is = (instance) ->
+  instance instanceof Client
