@@ -63,5 +63,17 @@ camelize = (obj) ->
     obj[newk] = v unless k is newk
   obj
 
-module.exports.is = (instance) ->
-  instance instanceof Client
+module.exports.opened = (conn) ->
+  # ssh@0.3.x use "_state"
+  # ssh@0.4.x use "_sshstream" and "_sock"
+  # ssh@1.7.0 use "ssh._writableState?.ended"
+  (conn._state? and conn._state isnt 'closed') or (conn._sshstream?.writable and conn._sock?.writable) or (conn._sock?._writableState?.ended is false)
+
+module.exports.closed = (conn) ->
+  # ssh@0.3.x use "_state"
+  # ssh@0.4.x use "_sshstream" and "_sock"
+  # ssh@1.7.0 use "ssh._writableState?.ended"
+  not module.exports.opened conn
+
+module.exports.is = (conn) ->
+  conn instanceof Client

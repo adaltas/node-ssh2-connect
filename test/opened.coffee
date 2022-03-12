@@ -1,18 +1,20 @@
 
 connect = require '../src'
 
-describe 'connect.is', ->
+describe 'connect.opened', ->
   
-  it 'valid', ->
+  it 'with opened connection', ->
     conn = await connect
       host: '127.0.0.1'
       privateKeyPath: '~/.ssh/id_ed25519'
-    connect.is(conn).should.be.true()
+    connect.opened(conn).should.be.true()
     conn.end()
-  
-  it 'invalid null', ->
+      
+  it 'with closed connection', ->
     conn = await connect
       host: '127.0.0.1'
       privateKeyPath: '~/.ssh/id_ed25519'
-    connect.is(null).should.be.false()
+    conn.on 'close', ->
+      connect.opened(conn).should.be.false()
     conn.end()
+  
