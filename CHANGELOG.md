@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/adaltas/node-ssh2-connect/compare/v3.3.1...v3.4.0) (2022-03-12)
+
+
+### Features
+
+* closed and opened functions ([5823068](https://github.com/adaltas/node-ssh2-connect/commit/5823068ed32f5710c916eb63c733e433778558be))
+
 ### [3.3.1](https://github.com/adaltas/node-ssh2-connect/compare/v3.3.0...v3.3.1) (2022-03-12)
 
 
