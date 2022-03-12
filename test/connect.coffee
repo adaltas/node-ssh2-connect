@@ -5,8 +5,16 @@ connect = require '../src'
 describe 'connect', ->
 
   it 'initiate a new connection', ->
+    whoami = null
     conn = await connect {}
-    conn.end()
+    conn.exec 'whoami', (err, stream) ->
+      stream
+      .on 'close', (code, signal) ->
+        code.should.eql 0
+        whoami.should.eql 'david'
+        conn.end()
+      .on 'data', (data) ->
+        whoami = data.toString().trim()
 
   it 'initiate a failed connection', ->
     try
