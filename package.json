@@ -1,7 +1,7 @@
 {
   "name": "ssh2-connect",
   "description": "Callback-based api behind ssh2 to open an SSH connection",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
   "coffeelintConfig": {
     "indentation": {
