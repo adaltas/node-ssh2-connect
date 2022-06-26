@@ -126,6 +126,13 @@ npm run build
 
 The test suite is run online with [Travis][travis] against several Node.js version.
 
+To version and publish:
+
+```bash
+npm run release
+npm publish
+```
+
 ## Contributors
 
 *   David Worms: <https://github.com/wdavidw>
