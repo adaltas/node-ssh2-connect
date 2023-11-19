@@ -24,6 +24,7 @@
   },
   "contributors": [],
   "dependencies": {
+    "mixme": "^1.1.0",
     "ssh2": "~1.11.0"
   },
   "devDependencies": {
@@ -69,10 +70,8 @@
     "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
-    "build": "coffee -b -o lib src",
     "prepare": "husky install",
     "prepublishOnly": "git push --follow-tags origin master",
-    "pretest": "npm run build",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",

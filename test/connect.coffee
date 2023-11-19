@@ -1,7 +1,7 @@
 
 os = require 'os'
 fs = require('fs').promises
-connect = require '../src'
+connect = require '../lib'
 
 describe 'connect', ->
 

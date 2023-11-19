@@ -1,5 +1,5 @@
 
-connect = require '../src'
+connect = require '../lib'
 
 describe 'connect.opened', ->
   
