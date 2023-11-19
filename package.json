@@ -25,15 +25,15 @@
   "contributors": [],
   "dependencies": {
     "mixme": "^1.1.0",
-    "ssh2": "~1.11.0"
+    "ssh2": "~1.14.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "@commitlint/cz-commitlint": "^17.0.3",
+    "@commitlint/cli": "^18.4.2",
+    "@commitlint/config-conventional": "^18.4.2",
+    "@commitlint/cz-commitlint": "^18.4.2",
     "coffeescript": "^2.7.0",
-    "husky": "^8.0.1",
-    "mocha": "~10.0.0",
+    "husky": "^8.0.3",
+    "mocha": "~10.2.0",
     "should": "~13.2.3",
     "standard-version": "^9.5.0"
   },
