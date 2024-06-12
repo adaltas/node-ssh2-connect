@@ -124,14 +124,17 @@ To generate the JavaScript files:
 npm run build
 ```
 
-The test suite is run online with [Travis][travis] against several Node.js version.
+The test suite is run online with GitHub action against several Node.js version.
 
-To version and publish:
+## Release
+
+Versions are incremented using semantic versioning. To create a new version and publish it to NPM, run:
 
 ```bash
 npm run release
-npm publish
 ```
+
+The publication is handled by the GitHub action.
 
 ## Contributors
 
