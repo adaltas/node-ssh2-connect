@@ -132,8 +132,9 @@ Versions are incremented using semantic versioning. To create a new version and 
 
 ```bash
 npm run release
-# Or
+# Or (`git push` is only supported for the release script)
 npm run release:<major|minor|patch>
+git push --follow-tags origin master
 ```
 
 The NPM publication is handled with the GitHub action.
