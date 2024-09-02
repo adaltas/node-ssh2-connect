@@ -132,9 +132,11 @@ Versions are incremented using semantic versioning. To create a new version and 
 
 ```bash
 npm run release
+# Or
+npm run release:<major|minor|patch>
 ```
 
-The publication is handled by the GitHub action.
+The NPM publication is handled with the GitHub action.
 
 ## Contributors
 
