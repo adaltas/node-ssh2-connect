@@ -77,5 +77,6 @@
     "release:major": "standard-version --release-as major",
     "postrelease": "git push --follow-tags origin master",
     "test": "mocha 'test/**/*.coffee'"
-  }
+  },
+  "types": "types/index.d.ts"
 }
