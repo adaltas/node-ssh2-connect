@@ -12,8 +12,15 @@
     "@commitlint/cli": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
     "@commitlint/cz-commitlint": "^19.4.0",
+    "@eslint/js": "^9.9.1",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-mocha": "^10.5.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
     "mocha": "~10.7.3",
+    "prettier": "^3.3.3",
     "rollup": "^4.21.2",
     "should": "~13.2.3",
     "standard-version": "^9.5.0"
@@ -40,6 +47,10 @@
     "ssh2"
   ],
   "license": "MIT",
+  "lint-staged": {
+    "*.js": "npm run lint:fix",
+    "*.md": "prettier -w"
+  },
   "main": "./lib/index.js",
   "mocha": {
     "throw-deprecation": true,
@@ -57,6 +68,9 @@
   },
   "scripts": {
     "build": "npx rollup -c",
+    "lint:check": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint:staged": "npx lint-staged",
     "prepare": "husky install",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
