@@ -14,11 +14,19 @@
     "@commitlint/cz-commitlint": "^19.4.0",
     "husky": "^9.1.5",
     "mocha": "~10.7.3",
+    "rollup": "^4.21.2",
     "should": "~13.2.3",
     "standard-version": "^9.5.0"
   },
   "engines": {
     "node": ">=0.10.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "_types": "./dist/esm/index.d.js",
+      "require": "./dist/cjs/index.cjs"
+    }
   },
   "homepage": "https://github.com/adaltas/node-ssh2-connect",
   "keywords": [
@@ -43,12 +51,12 @@
     "reporter": "spec",
     "recursive": true
   },
-  "optionalDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
+    "build": "npx rollup -c",
     "prepare": "husky install",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
