@@ -3,25 +3,6 @@
   "description": "Callback-based api behind ssh2 to open an SSH connection",
   "version": "3.5.0",
   "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
-  "coffeelintConfig": {
-    "indentation": {
-      "level": "error",
-      "value": 2
-    },
-    "line_endings": {
-      "level": "error",
-      "value": "unix"
-    },
-    "max_line_length": {
-      "level": "ignore"
-    },
-    "no_backticks": {
-      "level": "ignore"
-    },
-    "no_nested_string_interpolation": {
-      "level": "ignore"
-    }
-  },
   "contributors": [],
   "dependencies": {
     "mixme": "^1.1.0",
@@ -31,7 +12,6 @@
     "@commitlint/cli": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
     "@commitlint/cz-commitlint": "^19.4.0",
-    "coffeescript": "^2.7.0",
     "husky": "^9.1.5",
     "mocha": "~10.7.3",
     "should": "~13.2.3",
@@ -56,8 +36,7 @@
   "mocha": {
     "throw-deprecation": true,
     "require": [
-      "should",
-      "coffeescript/register"
+      "should"
     ],
     "inline-diffs": true,
     "timeout": 40000,
@@ -76,7 +55,7 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
     "postrelease": "git push --follow-tags origin master",
-    "test": "mocha 'test/**/*.coffee'"
+    "test": "mocha 'test/**/*.js'"
   },
   "types": "types/index.d.ts"
 }
