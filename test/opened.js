@@ -1,4 +1,4 @@
-const connect = require("ssh2-connect");
+import { connect, opened } from "../lib/index.js";
 
 describe("connect.opened", function () {
   it("with opened connection", async function () {
@@ -6,7 +6,7 @@ describe("connect.opened", function () {
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    connect.opened(conn).should.be.true();
+    opened(conn).should.be.true();
     conn.end();
   });
 
@@ -15,7 +15,7 @@ describe("connect.opened", function () {
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    conn.on("close", () => connect.opened(conn).should.be.false());
+    conn.on("close", () => opened(conn).should.be.false());
     conn.end();
   });
 });

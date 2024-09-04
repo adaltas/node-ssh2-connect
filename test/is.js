@@ -1,4 +1,4 @@
-const connect = require("ssh2-connect");
+import { connect, is } from "../lib/index.js";
 
 describe("connect.is", function () {
   it("valid", async function () {
@@ -6,7 +6,7 @@ describe("connect.is", function () {
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    connect.is(conn).should.be.true();
+    is(conn).should.be.true();
     conn.end();
   });
 
@@ -15,7 +15,7 @@ describe("connect.is", function () {
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    connect.is(null).should.be.false();
+    is(null).should.be.false();
     conn.end();
   });
 });

@@ -1,6 +1,6 @@
 import os from "os";
 import fs from "node:fs/promises";
-const connect = require("ssh2-connect");
+import connect from "../lib/index.js";
 
 describe("connect", function () {
   it("initiate a new connection", async function () {

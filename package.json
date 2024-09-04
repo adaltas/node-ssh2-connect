@@ -32,7 +32,7 @@
     "ssh2"
   ],
   "license": "MIT",
-  "main": "./lib/index",
+  "main": "./lib/index.js",
   "mocha": {
     "throw-deprecation": true,
     "require": [
@@ -57,5 +57,6 @@
     "postrelease": "git push --follow-tags origin master",
     "test": "mocha 'test/**/*.js'"
   },
+  "type": "module",
   "types": "types/index.d.ts"
 }
