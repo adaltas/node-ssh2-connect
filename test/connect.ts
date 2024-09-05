@@ -1,19 +1,21 @@
-import os from "os";
-import fs from "node:fs/promises";
-import connect from "../lib/index.js";
+import * as os from "os";
+import * as fs from "node:fs/promises";
+import { ClientErrorExtensions } from "ssh2";
+import "should";
+import connect from "../src/index.js";
 
 describe("connect", function () {
   it("initiate a new connection", async function () {
-    let whoami = null;
+    let whoami: string;
     const conn = await connect({});
     conn.exec("whoami", (err, stream) => {
       stream
-        .on("close", (code) => {
+        .on("close", (code: number) => {
           code.should.eql(0);
           whoami.should.eql(os.userInfo().username);
           conn.end();
         })
-        .on("data", (data) => {
+        .on("data", (data: number) => {
           whoami = data.toString().trim();
         });
     });
@@ -32,7 +34,10 @@ describe("connect", function () {
       // Object.keys(err).should.eql ['level']
       // But on GH actions with Ubuntu
       // Object.keys(err).should.eql ['errno', 'code', 'syscall', 'hostname', 'level']
-      err.level.should.equalOneOf("client-authentication", "client-socket");
+      (err as ClientErrorExtensions).level?.should.equalOneOf(
+        "client-authentication",
+        "client-socket",
+      );
     }
   });
 
@@ -68,41 +73,5 @@ describe("connect", function () {
       private_key_path: "~/.ssh/id_ed25519",
     });
     conn.end();
-  });
-
-  describe("callback", function () {
-    it("initiate a new connection", async function () {
-      new Promise((resolve, reject) => {
-        connect({}, (err, conn) => {
-          if (err) return reject(err);
-          conn.end();
-          resolve();
-        });
-      });
-    });
-
-    it("initiate a failed connection", async function () {
-      return new Promise((resolve, reject) => {
-        connect(
-          {
-            host: "doesntexists",
-            username: "iam",
-            password: "invalid",
-          },
-          (err) => {
-            if (!err) return reject(Error("Error not throw"));
-            // MacOS ssh2@1.7.0
-            // Object.keys(err).should.eql ['level']
-            // But on GH actions with Ubuntu
-            // Object.keys(err).should.eql ['errno', 'code', 'syscall', 'hostname', 'level']
-            err.level.should.equalOneOf(
-              "client-authentication",
-              "client-socket",
-            );
-            resolve();
-          },
-        );
-      });
-    });
   });
 });

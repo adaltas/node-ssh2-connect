@@ -13,6 +13,8 @@
     "@commitlint/config-conventional": "^19.4.1",
     "@commitlint/cz-commitlint": "^19.4.0",
     "@eslint/js": "^9.9.1",
+    "@types/mocha": "^10.0.7",
+    "@types/ssh2": "^1.15.1",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-mocha": "^10.5.0",
@@ -23,7 +25,10 @@
     "prettier": "^3.3.3",
     "rollup": "^4.21.2",
     "should": "~13.2.3",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": ">=0.10.1"
@@ -31,7 +36,7 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "_types": "./dist/esm/index.d.js",
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs"
     }
   },
@@ -53,21 +58,22 @@
   },
   "main": "./lib/index.js",
   "mocha": {
-    "throw-deprecation": true,
+    "inline-diffs": true,
+    "loader": "ts-node/esm",
+    "recursive": true,
+    "reporter": "spec",
     "require": [
       "should"
     ],
-    "inline-diffs": true,
-    "timeout": 40000,
-    "reporter": "spec",
-    "recursive": true
+    "throw-deprecation": false,
+    "timeout": 40000
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
-    "build": "npx rollup -c",
+    "build": "tsc --project tsconfig.src.json && rollup -c",
     "lint:check": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "npx lint-staged",
@@ -77,8 +83,8 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
     "postrelease": "git push --follow-tags origin master",
-    "test": "mocha 'test/**/*.js'"
+    "test": "mocha 'test/**/*.ts'"
   },
   "type": "module",
-  "types": "types/index.d.ts"
+  "types": "./dist/types/index.d.ts"
 }

@@ -1,12 +1,13 @@
-import { connect, opened } from "../lib/index.js";
+import "should";
+import { connect, closed } from "../src/index.js";
 
-describe("connect.opened", function () {
+describe("connect.closed", function () {
   it("with opened connection", async function () {
     const conn = await connect({
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    opened(conn).should.be.true();
+    closed(conn).should.be.false();
     conn.end();
   });
 
@@ -15,7 +16,7 @@ describe("connect.opened", function () {
       host: "127.0.0.1",
       privateKeyPath: "~/.ssh/id_ed25519",
     });
-    conn.on("close", () => opened(conn).should.be.false());
+    conn.on("close", () => closed(conn).should.be.true());
     conn.end();
   });
 });

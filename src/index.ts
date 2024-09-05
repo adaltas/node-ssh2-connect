@@ -1,14 +1,34 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import { Client } from "ssh2";
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+import { Client, ConnectConfig as Config } from "ssh2";
 import { camelize } from "mixme";
 
-const connect = function (options, callback) {
-  const work = async function (resolve, reject) {
+type CamelToSnakeCase<S extends string> =
+  S extends `${infer T}${infer U}` ?
+    `${T extends Capitalize<T> ? "_" : ""}${Lowercase<T>}${CamelToSnakeCase<U>}`
+  : S;
+type KeysToSnakeCase<T> = {
+  [K in keyof T as CamelToSnakeCase<string & K>]: T[K];
+};
+
+interface ConnectConfig extends Config, KeysToSnakeCase<Config> {
+  retry?: number | boolean;
+  wait?: number;
+  privateKey?: string | Buffer;
+  private_key?: string | Buffer;
+  privateKeyPath?: string | boolean;
+  private_key_path?: string | boolean;
+}
+
+const connect = function (options: ConnectConfig): PromiseLike<Client> {
+  const work = async function (
+    resolve: (value: Client) => void,
+    reject: (reason?: any) => void,
+  ) {
     if (options instanceof Client) {
       return resolve(options);
     }
-    options = camelize(options, 1);
+    options = camelize(options, 1) as ConnectConfig;
     if (options.username == null) {
       options.username =
         process.env["USER"] ||
@@ -25,6 +45,9 @@ const connect = function (options, callback) {
     if (options.retry == null) {
       options.retry = 1;
     }
+    if (options.retry === false) {
+      options.retry = 0;
+    }
     if (options.wait == null) {
       options.wait = 500;
     }
@@ -33,19 +56,19 @@ const connect = function (options, callback) {
         options.privateKeyPath = true; // Auto discovery
       }
     } else {
-      options.privateKeyPath = null;
+      options.privateKeyPath = undefined;
     }
     try {
       // Extract private key from file
       if (typeof options.privateKeyPath === "string") {
         let match;
         if ((match = /~(\/.*)/.exec(options.privateKeyPath))) {
-          options.privateKeyPath = path.join(process.env.HOME, match[1]);
+          options.privateKeyPath = path.join(process.env.HOME!, match[1]);
         }
         options.privateKey = await fs.readFile(options.privateKeyPath, "ascii");
       } else if (options.privateKeyPath === true) {
         for (const algo of ["id_ed25519", "id_rsa"]) {
-          const source = path.resolve(process.env.HOME, ".ssh", algo);
+          const source = path.resolve(process.env.HOME!, ".ssh", algo);
           try {
             options.privateKey = await fs.readFile(source, "ascii");
             break;
@@ -63,12 +86,11 @@ const connect = function (options, callback) {
     // Connection attempts
     let retry = options.retry;
     const connect = function () {
-      var connection, succeed;
       if (retry !== true && retry > 0) {
         retry--;
       }
-      succeed = false;
-      connection = new Client();
+      let succeed = false;
+      const connection = new Client();
       connection.on("error", function (error) {
         connection.end();
         // Event "error" is thrown after a "ready" if the connection is lost
@@ -89,39 +111,39 @@ const connect = function (options, callback) {
     };
     return connect();
   };
-  if (!callback) {
-    return new Promise(work);
-  } else {
-    work(
-      function (conn) {
-        callback(null, conn);
-      },
-      function (error) {
-        callback(error);
-      },
-    );
-  }
+  return new Promise(work);
 };
 
-const opened = function (conn) {
+class _Client extends Client {
+  _state?: string;
+  _sshstream?: {
+    writable: boolean;
+  };
+  _sock?: {
+    writable: boolean;
+    _writableState: {
+      ended: boolean;
+    };
+  };
+}
+
+const opened = function (conn: Client) {
   // ssh@0.3.x use "_state"
   // ssh@0.4.x use "_sshstream" and "_sock"
   // ssh@1.7.0 use "ssh._writableState?.ended"
+  const _conn = conn as _Client;
   return (
-    (conn._state != null && conn._state !== "closed") ||
-    (conn._sshstream?.writable && conn._sock?.writable) ||
-    conn._sock?._writableState?.ended === false
+    (_conn._state != null && _conn._state !== "closed") ||
+    (_conn._sshstream?.writable && _conn._sock?.writable) ||
+    _conn._sock?._writableState?.ended === false
   );
 };
 
-const closed = function (conn) {
-  // ssh@0.3.x use "_state"
-  // ssh@0.4.x use "_sshstream" and "_sock"
-  // ssh@1.7.0 use "ssh._writableState?.ended"
+const closed = function (conn: Client) {
   return !opened(conn);
 };
 
-const is = function (conn) {
+const is = function (conn: unknown) {
   return conn instanceof Client;
 };
 

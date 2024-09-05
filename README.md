@@ -1,5 +1,3 @@
-[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-connect.png)][travis]
-
 # Node.js ssh2-connect
 
 The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide a simplified callback-back approach to initiate a new SSH connection.
@@ -8,60 +6,78 @@ The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide a 
 
 The `connect` function return a promise. Its signature is `await connect(options)`
 
-It also accept an optional callback function. In such case, its signature is `connect(options, callback)`.
-
 This package simplifies the creation of an SSH connection. For example, the original ssh2 code...
 
 ```js
-const ssh2 = require('ssh2')
-const connection = new ssh2()
-connection.on('error', function(err){
+const ssh2 = require("ssh2");
+const connection = new ssh2();
+connection.on("error", function (err) {
   // Handle the connection error
-  connection.end()
-})
-connection.on('ready', function(){
+  connection.end();
+});
+connection.on("ready", function () {
   // Work with the connection
-  connection.end()
-})
+  connection.end();
+});
 connection.connect({
-  host: 'localhost',
-  user: 'milou',
-  password: 'wafwaf'
-})
+  host: "localhost",
+  user: "milou",
+  password: "wafwaf",
+});
 ```
 
-...is simplified to:
+Is simplified to:
 
 ```js
-const connect = require('ssh2-connect')
-(async () => {
-  try{
+import connect = from "ssh2-connect"
+try{
+  const ssh = await connect({
+    host: "localhost",
+    username: "david",
+    private_key_path: "~/.ssh/id_ed25519"
+  })
+  // Work with the connection, then close it
+} catch (err){
+  // Handle the connection error
+} finally{
+  // Close the connection
+  ssh.end()
+}
+```
+
+Or using CommonJS
+
+```js
+const { connect } = require("ssh2-connect")(async () => {
+  try {
     const ssh = await connect({
-      host: 'localhost',
-      username: 'david',
-      private_key_path: '~/.ssh/id_rsa'
-    })
+      host: "localhost",
+      username: "david",
+      private_key_path: "~/.ssh/id_ed25519",
+    });
     // Work with the connection
-    ssh.end()
-  }catch (err){
+    ssh.end();
+  } catch (err) {
     // Handle the connection error
+  } finally {
+    // Close the connection
   }
-})()
+})();
 ```
 
 ## Options
 
 Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect] function with a few additions:
 
--   `username`   
-    The username used to initiate the connection, default to the current
-    environment user.
--   `privateKeyPath`   
-    Path of the file containing the private key, `true` to enable auto-discovery or `false` to disable auto-discovery, default to `true`.   
--   `retry`
-    Attempt to reconnect multiple times, default to `1`.   
--   `wait`
-    Time to wait in milliseconds between each retry, default to `2000`.  
+- `username`
+  The username used to initiate the connection, default to the current
+  environment user.
+- `privateKeyPath`
+  Path of the file containing the private key, `true` to enable auto-discovery or `false` to disable auto-discovery, default to `true`.
+- `retry`
+  Attempt to reconnect multiple times, default to `1`.
+- `wait`
+  Time to wait in milliseconds between each retry, default to `2000`.
 
 Note, the "privateKeyPath" option is provided as a conveniency to read the private key and fill the "privateKey" property.
 
@@ -80,12 +96,12 @@ npm install ssh2-connect
 The example is using both the "ssh2-connect" and "ssh2-fs" modules.
 
 ```js
-const connect = require('ssh2-connect');
-const fs = require('ssh2-fs');
+const connect = require("ssh2-connect");
+const fs = require("ssh2-fs");
 // Open the connection
-connect({host: 'localhost'}, function(err, ssh){
+connect({host: "localhost"}, function(err, ssh){
   // Create a directory
-  fs.mkdir(ssh, '/tmp/a_dir', (err, stdout, stderr){
+  fs.mkdir(ssh, "/tmp/a_dir", (err, stdout, stderr){
     console.log(stdout);
   });
 });
@@ -94,18 +110,18 @@ connect({host: 'localhost'}, function(err, ssh){
 Compare this to the more verbose alternative using the original ssh2 module.
 
 ```js
-ssh2 = require('ssh2');
-fs = require('ssh2-fs');
+ssh2 = require("ssh2");
+fs = require("ssh2-fs");
 connection = new ssh2();
-connection.on('error', function(err){
+connection.on("error", function(err){
   connection.end()
 });
-connection.on('ready', function(){
-  fs.mkdir(connection, '/tmp/a_dir', (err, stdout, stderr){
+connection.on("ready", function(){
+  fs.mkdir(connection, "/tmp/a_dir", (err, stdout, stderr){
     console.log(stdout);
   });
 });
-connection.connect({host: 'localhost'});
+connection.connect({host: "localhost"});
 ```
 
 ## Development
@@ -141,11 +157,10 @@ The NPM publication is handled with the GitHub action.
 
 ## Contributors
 
-*   David Worms: <https://github.com/wdavidw>
+- David Worms: <https://github.com/wdavidw>
 
 This package is developed by [Adaltas](https://www.adaltas.com).
 
-[travis]: http://travis-ci.org/adaltas/node-ssh2-connect
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
 [license]: https://github.com/adaltas/node-ssh2-connect/blob/master/LICENSE.md

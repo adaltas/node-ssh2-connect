@@ -1,4 +1,5 @@
-import { connect, is } from "../lib/index.js";
+import "should";
+import { connect, is } from "../src/index.js";
 
 describe("connect.is", function () {
   it("valid", async function () {
