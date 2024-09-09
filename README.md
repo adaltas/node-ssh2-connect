@@ -6,14 +6,79 @@
 
 The Node.js ssh2-connect package extends the [`ssh2`](https://www.npmjs.com/package/ssh2) module to provide a simplified callback-back approach to initiate a new SSH connection.
 
+## Installation
+
+The project is OSS and licensed under the [MIT license](https://github.com/adaltas/node-ssh2-connect/blob/master/LICENSE.md).
+
+```bash
+npm install ssh2-connect
+```
+
 ## Usage
 
-The `connect` function return a promise. Its signature is `await connect(options)`
-
-This package simplifies the creation of an SSH connection. For example, the original ssh2 code...
+The `ssh2-connect` module exposes 4 functions.
 
 ```js
-const ssh2 = require("ssh2");
+// With ESM
+import { connect, is, closed, opened } from "ssh2-connect";
+// Or with CommonJS
+const { connect, is, closed, opened } = require("ssh2-connect");
+```
+
+Use `connect` to establishes the SSH connection
+
+```js
+// Establishes the SSH connection
+const client = await connect({
+  host: "example.com",
+  username: "user",
+  privateKeyPath: "~/.ssh/id_ed25519",
+});
+```
+
+### `await connect(options: ConnectConfig): PromiseLike<Client>`
+
+The `connect` function return a promise.
+
+Options are inherited from the [ssh2 `connect` method](https://www.npmjs.com/package/ssh2#client-methods) with a few additions.
+
+- `options` - The configuration options for the SSH connection.
+- `options.username` - The username for authentication. Defaults to the current user if not provided.
+- `options.retry` - The number of connection retry attempts. Set to `0` or `false` to disable retries, default is `1`.
+- `options.wait` - The wait time in milliseconds between each attempts, default to `500`.
+- `options.privateKey` - The private key as a string or Buffer for authentication.
+- `options.privateKeyPath` - The path to the private key file, or true for auto-discovery in ~/.ssh.
+- `options.password` - The password for authentication.
+- `options.[key: string]` - Any other valid SSH2 connection options.
+
+Note, the "privateKeyPath" option is provided as a conveniency to read the private key and fill the "privateKey" property.
+
+Additionally, all options may be provided in camalize (the default in [ssh2](https://www.npmjs.com/package/ssh2)) and snake cases. For example, both "privateKey" and "private_key" would be interprated the same.
+
+### `is(conn: unknown): boolean`
+
+Checks if the provided argument `conn` is an instance of the `Client` connection class from the ssh2 package.
+
+- `conn` - The object to check, probably an SSH client connection.
+
+### `closed(conn: Client): boolean`
+
+Checks if the provided SSH client connection is closed.
+
+- `conn` - The SSH client connection to check.
+
+### `opened(conn: Client): boolean`
+
+Checks if the provided SSH client connection is open and writable.
+
+- `conn` - The SSH client connection to check.
+
+## Purpose
+
+This package simplifies the creation and the usage of an SSH connection. For example, the original [ssh2](https://www.npmjs.com/package/ssh2) code...
+
+```js
+import ssh2 from "ssh2";
 const connection = new ssh2();
 connection.on("error", function (err) {
   // Handle the connection error
@@ -33,66 +98,20 @@ connection.connect({
 Is simplified to:
 
 ```js
-import connect = from "ssh2-connect"
-try{
+import { connect } from "ssh2-connect";
+try {
   const ssh = await connect({
     host: "localhost",
-    username: "david",
-    private_key_path: "~/.ssh/id_ed25519"
-  })
+    username: "milou",
+    private_key_path: "~/.ssh/id_ed25519",
+  });
   // Work with the connection, then close it
-} catch (err){
+} catch (err) {
   // Handle the connection error
-} finally{
+} finally {
   // Close the connection
-  ssh.end()
+  ssh.end();
 }
-```
-
-Or using CommonJS
-
-```js
-const { connect } = require("ssh2-connect")(async () => {
-  try {
-    const ssh = await connect({
-      host: "localhost",
-      username: "david",
-      private_key_path: "~/.ssh/id_ed25519",
-    });
-    // Work with the connection
-    ssh.end();
-  } catch (err) {
-    // Handle the connection error
-  } finally {
-    // Close the connection
-  }
-})();
-```
-
-## Options
-
-Options are inherited from the [ssh2 `Connection.prototype.connect`][ssh2-connect] function with a few additions:
-
-- `username`
-  The username used to initiate the connection, default to the current
-  environment user.
-- `privateKeyPath`
-  Path of the file containing the private key, `true` to enable auto-discovery or `false` to disable auto-discovery, default to `true`.
-- `retry`
-  Attempt to reconnect multiple times, default to `1`.
-- `wait`
-  Time to wait in milliseconds between each retry, default to `2000`.
-
-Note, the "privateKeyPath" option is provided as a conveniency to read the private key and fill the "privateKey" property.
-
-Additionally, all options may be provided in camalize (the default in [ssh2]) or underscore form. For example, both "privateKey" and "private_key" would be interprated the same.
-
-## Installation
-
-This is OSS and licensed under the [new BSD license][license].
-
-```bash
-npm install ssh2-connect
 ```
 
 ## Examples
@@ -130,21 +149,20 @@ connection.connect({host: "localhost"});
 
 ## Development
 
-Tests are executed with mocha. To install it, simple run `npm install`, it will install mocha and its dependencies in your project "node_modules" directory.
-
-To run the tests:
+Tests are executed with mocha. To install it, run `npm install`, it will install mocha and its dependencies in your project "node_modules" directory.
 
 ```bash
+npm install
 npm test
 ```
 
-To generate the JavaScript files:
+Source code is written in Typescription. The build command generates the JavaScript files.
 
 ```bash
 npm run build
 ```
 
-The test suite is run online with GitHub action against several Node.js version.
+The test suite is run online with [GitHub actions](https://github.com/adaltas/node-ssh2-connect/actions) against several Node.js version.
 
 ## Release
 
@@ -164,7 +182,3 @@ The NPM publication is handled with the GitHub action.
 - David Worms: <https://github.com/wdavidw>
 
 This package is developed by [Adaltas](https://www.adaltas.com).
-
-[ssh2]: https://github.com/mscdex/ssh2
-[ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
-[license]: https://github.com/adaltas/node-ssh2-connect/blob/master/LICENSE.md

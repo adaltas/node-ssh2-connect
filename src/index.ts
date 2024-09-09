@@ -19,7 +19,31 @@ interface ConnectConfig extends Config, KeysToSnakeCase<Config> {
   privateKeyPath?: string | boolean;
   private_key_path?: string | boolean;
 }
-
+/**
+ * Establishes an SSH connection using the provided configuration options.
+ *
+ * @param options - The configuration options for the SSH connection.
+ * @param options.username - The username for authentication. Defaults to the current user if not provided.
+ * @param options.retry - The number of connection retry attempts. Set to `0` or `false` to disable retries, default is `1`.
+ * @param options.wait - The wait time in milliseconds between each attempts, default to `500`.
+ * @param options.privateKey - The private key as a string or Buffer for authentication.
+ * @param options.privateKeyPath - The path to the private key file, or true for auto-discovery in ~/.ssh.
+ * @param options.password - The password for authentication.
+ * @param options.[key: string] - Any other valid SSH2 connection options.
+ *
+ * @returns A Promise that resolves to an SSH2 Client instance when the connection is established.
+ *
+ * @throws Will reject the promise with an error if the connection fails after all retry attempts.
+ *
+ * @example
+ * ```typescript
+ * const client = await connect({
+ *   host: 'example.com',
+ *   username: 'user',
+ *   privateKeyPath: '~/.ssh/id_ed25519'
+ * });
+ * ```
+ */
 const connect = function (options: ConnectConfig): PromiseLike<Client> {
   const work = async function (
     resolve: (value: Client) => void,
@@ -127,7 +151,36 @@ class _Client extends Client {
   };
 }
 
-const opened = function (conn: Client) {
+/**
+ * Checks if the provided argument `conn` is an instance of the `Client` connection class from the ssh2 package.
+ *
+ * @param conn - The object to check, probably an SSH client connection.
+ *
+ * @returns A boolean value indicating whether the given object is an SSH client connection or not.
+ */
+const is = function (conn: unknown): boolean {
+  return conn instanceof Client;
+};
+
+/**
+ * Checks if the provided SSH client connection is closed.
+ *
+ * @param conn - The SSH client connection to check.
+ *
+ * @returns A boolean value indicating whether the connection is closed (true) or open (false).
+ */
+const closed = function (conn: Client): boolean {
+  return !opened(conn);
+};
+
+/**
+ * Checks if the provided SSH client connection is open and writable.
+ *
+ * @param conn - The SSH client connection to check.
+ *
+ * @returns A boolean value indicating whether the connection is open and writable (true) or closed (false).
+ */
+const opened = function (conn: Client): boolean {
   // ssh@0.3.x use "_state"
   // ssh@0.4.x use "_sshstream" and "_sock"
   // ssh@1.7.0 use "ssh._writableState?.ended"
@@ -139,12 +192,4 @@ const opened = function (conn: Client) {
   );
 };
 
-const closed = function (conn: Client) {
-  return !opened(conn);
-};
-
-const is = function (conn: unknown) {
-  return conn instanceof Client;
-};
-
-export { connect, opened, closed, is };
+export { connect, is, closed, opened };
