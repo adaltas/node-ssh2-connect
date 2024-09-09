@@ -3,7 +3,8 @@ dist
 node_modules
 package-lock.json
 yarn.lock
-!.prettierrc.yml
 !.github
 !.gitignore
+!.husky
 !.npmignore
+!.prettierrc.yml
