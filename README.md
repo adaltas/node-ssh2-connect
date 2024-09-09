@@ -1,6 +1,10 @@
 # Node.js ssh2-connect
 
-The Node.js ssh2-connect package extends the [`ssh2`][ssh2] module to provide a simplified callback-back approach to initiate a new SSH connection.
+[![Build Status](https://img.shields.io/github/actions/workflow/status/adaltas/node-ssh2-connect/test.yml?branch=master)](https://github.com/adaltas/node-ssh2-connect/actions)
+[![NPM](https://img.shields.io/npm/dm/ssh2-connect)](https://www.npmjs.com/package/ssh2-connect)
+[![NPM](https://img.shields.io/npm/v/ssh2-connect)](https://www.npmjs.com/package/ssh2-connect)
+
+The Node.js ssh2-connect package extends the [`ssh2`](https://www.npmjs.com/package/ssh2) module to provide a simplified callback-back approach to initiate a new SSH connection.
 
 ## Usage
 
