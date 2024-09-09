@@ -2,7 +2,7 @@ import * as os from "os";
 import * as fs from "node:fs/promises";
 import { ClientErrorExtensions } from "ssh2";
 import "should";
-import connect from "../src/index.js";
+import { connect } from "../src/index.js";
 
 describe("connect", function () {
   it("initiate a new connection", async function () {

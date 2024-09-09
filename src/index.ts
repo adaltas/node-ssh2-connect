@@ -147,5 +147,4 @@ const is = function (conn: unknown) {
   return conn instanceof Client;
 };
 
-export default connect;
 export { connect, opened, closed, is };
