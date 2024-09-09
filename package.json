@@ -40,6 +40,9 @@
       "require": "./dist/cjs/index.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/adaltas/node-ssh2-connect",
   "keywords": [
     "client",
