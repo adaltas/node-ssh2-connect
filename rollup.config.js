@@ -8,6 +8,6 @@ export default [
         sourcemap: true,
       },
     ],
-    external: ["mixme", "ssh2"],
+    external: ["mixme", "ssh2", "node:fs/promises", "node:path"],
   },
 ];
