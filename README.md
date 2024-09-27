@@ -179,6 +179,6 @@ The NPM publication is handled with the GitHub action.
 
 ## Contributors
 
-- David Worms: <https://github.com/wdavidw>
+The project is sponsored by [Adaltas](https://www.adaltas.com) based in Paris, France. Adaltas offers support and consulting on distributed system, big data and open source.
 
-This package is developed by [Adaltas](https://www.adaltas.com).
+- David Worms: <https://github.com/wdavidw>
