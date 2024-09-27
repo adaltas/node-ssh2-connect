@@ -44,7 +44,7 @@ interface ConnectConfig extends Config, KeysToSnakeCase<Config> {
  * });
  * ```
  */
-const connect = function (options: ConnectConfig): PromiseLike<Client> {
+const connect = function (options: ConnectConfig): Promise<Client> {
   const work = async function (
     resolve: (value: Client) => void,
     reject: (reason?: any) => void,
