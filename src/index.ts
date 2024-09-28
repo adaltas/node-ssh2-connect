@@ -192,4 +192,4 @@ const opened = function (conn: Client): boolean {
   );
 };
 
-export { connect, is, closed, opened };
+export { connect, is, closed, opened, ConnectConfig };
