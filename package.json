@@ -28,6 +28,7 @@
     "should": "~13.2.3",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
+    "tsup": "^8.3.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
@@ -36,9 +37,9 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
@@ -77,7 +78,7 @@
     "url": "https://github.com/adaltas/node-ssh2-connect.git"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.src.json && rollup -c",
+    "build": "tsup-node",
     "lint:check": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "npx lint-staged",
