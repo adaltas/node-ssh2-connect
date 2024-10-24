@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/adaltas/node-ssh2-connect/compare/v4.0.3...v4.1.0) (2024-10-24)
+
+### Features
+
+- default export ([2b2a105](https://github.com/adaltas/node-ssh2-connect/commit/2b2a10598621b8316262f1508fbd7ab40f75747f))
+
+### Bug Fixes
+
+- node type dependency ([e91f791](https://github.com/adaltas/node-ssh2-connect/commit/e91f791e90d817ea10a938dac54cf5abbe6f9128))
+
 ### [4.0.3](https://github.com/adaltas/node-ssh2-connect/compare/v4.0.2...v4.0.3) (2024-09-28)
 
 ### Bug Fixes
