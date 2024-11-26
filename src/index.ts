@@ -138,18 +138,6 @@ const connect = function (options: ConnectConfig): Promise<Client> {
   return new Promise(work);
 };
 
-class _Client extends Client {
-  _state?: string;
-  _sshstream?: {
-    writable: boolean;
-  };
-  _sock?: {
-    writable: boolean;
-    _writableState: {
-      ended: boolean;
-    };
-  };
-}
 
 /**
  * Checks if the provided argument `conn` is an instance of the `Client` connection class from the ssh2 package.
@@ -181,6 +169,18 @@ const closed = function (conn: Client): boolean {
  * @returns A boolean value indicating whether the connection is open and writable (true) or closed (false).
  */
 const opened = function (conn: Client): boolean {
+  class _Client extends Client {
+    _state?: string;
+    _sshstream?: {
+      writable: boolean;
+    };
+    _sock?: {
+      writable: boolean;
+      _writableState: {
+        ended: boolean;
+      };
+    };
+  }
   // ssh@0.3.x use "_state"
   // ssh@0.4.x use "_sshstream" and "_sock"
   // ssh@1.7.0 use "ssh._writableState?.ended"
