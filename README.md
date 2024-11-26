@@ -61,6 +61,12 @@ Checks if the provided argument `conn` is an instance of the `Client` connection
 
 - `conn` - The object to check, probably an SSH client connection.
 
+### `close(conn: Client): PromiseLike<boolean>`
+
+Close the the SSH client connection. It resolves to `true` if the connection was opened and closed. Otherwise it resolves to `false`.
+
+- `conn` - The SSH client connection to close.
+
 ### `closed(conn: Client): boolean`
 
 Checks if the provided SSH client connection is closed.

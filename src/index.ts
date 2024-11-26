@@ -138,6 +138,22 @@ const connect = function (options: ConnectConfig): Promise<Client> {
   return new Promise(work);
 };
 
+/**
+ * Close the the SSH client connection.
+ *
+ * @param conn - The SSH client connection to close.
+ *
+ * @returns A boolean value indicating whether the connection was closed (true) or if it was already closed (false).
+ */
+const close = (conn: Client): PromiseLike<boolean> => {
+  if (closed(conn)) return Promise.resolve(false);
+  return new Promise((resolve) => {
+    conn.end();
+    conn.on("close", () => {
+      resolve(true);
+    });
+  });
+};
 
 /**
  * Checks if the provided argument `conn` is an instance of the `Client` connection class from the ssh2 package.
@@ -193,4 +209,4 @@ const opened = function (conn: Client): boolean {
 };
 
 export default connect;
-export { connect, is, closed, opened, ConnectConfig };
+export { is, connect, close, closed, opened, ConnectConfig };
