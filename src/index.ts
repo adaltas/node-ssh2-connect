@@ -52,7 +52,7 @@ const connect = function (options: ConnectConfig): Promise<Client> {
     if (options instanceof Client) {
       return resolve(options);
     }
-    options = camelize(options, 1) as ConnectConfig;
+    options = camelize(options as Record<string, unknown>, 1) as ConnectConfig;
     if (options.username == null) {
       options.username =
         process.env["USER"] ||
