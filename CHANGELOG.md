@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/adaltas/node-ssh2-connect/compare/v4.2.0...v4.2.1) (2025-12-02)
+
+### Bug Fixes
+
+- ts cast for camelize ([bcfdc4f](https://github.com/adaltas/node-ssh2-connect/commit/bcfdc4f2077e4d51d6c0caa4588aa7db1f9e0e46))
+
 ## [4.2.0](https://github.com/adaltas/node-ssh2-connect/compare/v4.1.1...v4.2.0) (2024-11-26)
 
 ### Features
